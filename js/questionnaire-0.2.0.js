@@ -131,7 +131,6 @@ console.log('  response:'+JSON.stringify(response));
       contact.stage = 'New Questionnaire';
       contact.tenantId = q.submit.tenantId;
       contact.customFields = quCustomFields; 
-      contact.tenantId = q.tenantId;
       console.log('Sending message: '+JSON.stringify(contact));
       // $('html, body').css("cursor", "wait");
       return $.ajax({
