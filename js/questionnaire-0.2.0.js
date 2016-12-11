@@ -127,7 +127,7 @@ console.log('  response:'+JSON.stringify(response));
       contact.enquiryType = q.about.name;
       contact.email = q.about.email;
       contact.owner = q.about.email;
-      contact.submit.message = 'New Questionnaire';
+      contact.message = q.submit.message;
       contact.stage = 'New Questionnaire';
       contact.tenantId = q.submit.tenantId;
       contact.customFields = quCustomFields; 
