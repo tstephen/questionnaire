@@ -1,0 +1,23 @@
+{ 
+  "firstName":"E",
+  "lastName":"E",
+  "email":"ee@knowprocess.com",
+  "owner":"tim@knowprocess.com",
+  "accountType":"Pupil",
+  "stage":"New Questionnaire",
+  "customFields": {
+    "className":"4L",
+    "veryActivePE":"3-Quite often",
+    "breakActivity":"1-Stood around or walked around",
+    "lunchActivity":"1-Sat down (talking, reading, doing schoolwork)",
+    "afterSchoolActivity":"1-1 time last week",
+    "weekendActivity":"2-2 or 3 times last week",
+    "freeTimeActivity":"4-I quite often (5 or 6 times last week) did physical things in my free time",
+    "blockersBreaks":"break",
+    "blockersOutOfSchool":"OOS",
+    "sickLastWeek":"false"
+  },
+  "message":"Hello",
+  "tenantId":"corshamprimary"
+}
+

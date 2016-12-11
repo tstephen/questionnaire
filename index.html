@@ -87,10 +87,12 @@ See also the accompanying CSS example in css/bst.css .
               </div>
             </div>
           {{/if}}
-          <div class="form-group">
-            <label for="contact.account.name">{{q.contact.account.name.label}}</label>
-            <input class="form-control" id="contact.account.name" placeholder="{{q.contact.account.name.placeholder}}" required value="{{contact.account.name}}">
-          </div>
+          {{#if contact.account}}
+            <div class="form-group">
+              <label for="contact.account.name">{{q.contact.account.name.label}}</label>
+              <input class="form-control" id="contact.account.name" placeholder="{{q.contact.account.name.placeholder}}" required value="{{contact.account.name}}">
+            </div>
+          {{/if}}
           {{#if q.contact.account.description}}
             <div class="form-group">
               <label for="contact.account.description">{{q.contact.account.description.label}}</label>
@@ -180,7 +182,7 @@ See also the accompanying CSS example in css/bst.css .
                     {{#optionNames:k}}
                       <div class="radio">
                         <label>
-                          <input type="radio" id="{{toId(.)}}" value="{{.}}">
+                          <input type="radio" id="{{toId(.)}}" name="{{q.questionCategories[i].questions[j].response}}" value="{{k}}-{{.}}">
                           {{.}}
                         </label>
                       </div>
@@ -209,7 +211,7 @@ See also the accompanying CSS example in css/bst.css .
                     </table> 
                   {{/if}}
                   {{#additionalInfo}}
-                    <input class="form-control hidden" id="{{id}}Details" placeholder="You may provide additional details here or email supporting documents to questionnaires@trakeo.com" value="{{this.responseDetails}}"/>
+                    <input class="form-control hidden" id="{{id}}Details" placeholder="You may provide additional details here" value="{{this.responseDetails}}"/>
                   {{/additionalInfo}}
                 </li>
               {{/each}}
@@ -243,7 +245,7 @@ See also the accompanying CSS example in css/bst.css .
 
   <script src='js/0.7.3/ractive.min.js'></script>
   <script src="js/string-functions-0.1.0.js"></script>
-  <script src="js/questionnaire-0.1.0.js"></script>
+  <script src="js/questionnaire-0.2.0.js"></script>
 </body>
 </html>
 
