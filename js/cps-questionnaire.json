@@ -1,6 +1,7 @@
 {
   "about": {
-    "author": "Tim Stephenson <tim@thestephensons.me.uk>",
+    "author": "Tim Stephenson",
+    "email": "tim@thestephensons.me.uk",
     "name": "Physical Activity 1",
     "title": "Physical Activity Questionnaire",
     "subTitle": "",
@@ -9,22 +10,21 @@
   "contact": {
      "top": true,
      "bottom": false,
+     "accountType": "Pupil",
      "title": "About You",
      "firstName": { "label": "Name", "placeholder": "Please enter your first name" },
-     "lastName": { "placeholder": "Please enter your last name" },
-     "customFields": { 
-       "age": { "label": "Age", "placeholder": "Please enter your age" },
-       "code": { "label": "Code", "placeholder": "" },
-       "gender": { "label": "Gender", "placeholder": "Boy / Girl" }
-     },
-     "account": { 
-       "name": { "label": "Class", "placeholder": "Please enter your class" }
-     }
+     "lastName": { "placeholder": "Please enter your last name" }
   },
-  "questionsTitle": "Please tell us about...",
+  "questionsTitle": "Please tell us ...",
   "questionCategories": [
     { 
-      "category": "", "always": true, "questions": [
+      "category": "About you", "always": true, "questions": [
+        { "id": "className", "hint":"", "label": "Your Class", "required": true, "type": "text" },
+        { "id": "gender", "hint":"", "label": "Your Gender", "optionNames":["Boy","Girl"], "required": true, "type": "radio" },
+        { "id": "code", "hint":"", "label": "Your VLE Username", "required": true, "type": "text" }
+      ]
+    },{
+      "category": "About your physical activity", "always": true, "questions": [
         { "id": "veryActivePE", "hint":"", "label": "In the last 7 days, during your physical education (PE) classes, how often were you very active (playing hard, running, jumping, throwing)?", "optionNames":["Hardly ever","Sometimes","Quite often","Always"], "required": true, "type": "radio" },
         { "id": "breakActivity", "hint":"", "label": "In the last 7 days, what did you do most of the time at break time?", "optionNames":["Sat down (talking, reading, doing schoolwork)","Stood around or walked around","Ran or played a little bit","Ran around and played quite a bit","Ran and played hard most of the time"], "required": true, "type": "radio" },
         { "id": "lunchActivity", "hint":"", "label": "In the last 7 days, what did you normally do at lunch (besides eating lunch)?", "optionNames":["Sat down (talking, reading, doing schoolwork)","Stood around or walked around","Ran or played a little bit","Ran around and played quite a bit","Ran and played hard most of the time"], "required": true, "type": "radio" },
@@ -38,8 +38,8 @@
     } 
   ],
   "submit": {
-    "endpoint":"//api.omny.link/msg/",
-    "msgName":"cps.questionnaire.json",
+    "endpoint":"https://api.omny.link/msg/",
+    "msgName":"omny.enquiry.json",
     "successPage":"thanks.html",
     "text":"Thanks for your time.",
     "title":"That's it!",
