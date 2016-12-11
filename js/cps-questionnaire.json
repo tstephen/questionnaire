@@ -1,7 +1,7 @@
 {
   "about": {
     "author": "Tim Stephenson",
-    "email": "tim@thestephensons.me.uk",
+    "email": "tim@knowprocess.com",
     "name": "Physical Activity 1",
     "title": "Physical Activity Questionnaire",
     "subTitle": "",
@@ -30,7 +30,7 @@
         { "id": "lunchActivity", "hint":"", "label": "In the last 7 days, what did you normally do at lunch (besides eating lunch)?", "optionNames":["Sat down (talking, reading, doing schoolwork)","Stood around or walked around","Ran or played a little bit","Ran around and played quite a bit","Ran and played hard most of the time"], "required": true, "type": "radio" },
         { "id": "afterSchoolActivity", "hint":"", "label": "In the last 7 days, on how many days after school, did you do sports, dance, or play games in which you were very active?", "optionNames":["1 time last week","2 or 3 times last week","4 times last week","5 times last week"], "required": true, "type": "radio" },
         { "id": "weekendActivity", "hint":"", "label": "On the last weekend, how many times did you do sports, dance, or play games in which you were very active? ", "optionNames":["1 time last week","2 or 3 times last week","4 times last week","5 times last week"], "required": true, "type": "radio" },
-        { "id": "freeTimeActivity", "hint":"", "label": "Which one of the following describes you best for the last 7 days? Read all five statements before deciding on the one answer that describes you.", "optionNames":["All or most of my free time was spent doing things that involve little physical effort","I sometimes (1 — 2 times last week) did physical things in my free time (e.g. played sports, went running, swimming, bike riding, did aerobics)","I often (3 — 4 times last week) did physical things in my free time","I quite often (5 — 6 times last week) did physical things in my free time", "I very often (7 or more times last week) did physical things in my free time"], "required": true, "type": "radio" },
+        { "id": "freeTimeActivity", "hint":"", "label": "Which one of the following describes you best for the last 7 days? Read all five statements before deciding on the one answer that describes you.", "optionNames":["All or most of my free time was spent doing things that involve little physical effort","I sometimes (1 or 2 times last week) did physical things in my free time (e.g. played sports, went running, swimming, bike riding, did aerobics)","I often (3 or 4 times last week) did physical things in my free time","I quite often (5 or 6 times last week) did physical things in my free time", "I very often (7 or more times last week) did physical things in my free time"], "required": true, "type": "radio" },
         { "id": "blockersBreaks", "hint":"", "label": "What stops you being physically active at Break Times/Lunch Time? (please give examples)", "required": true, "type": "text" },
         { "id": "blockersOutOfSchool", "hint":"", "label": "What stops you being physically active After School/Weekends? (please give examples)", "required": true, "type": "text" },
         { "id": "sickLastWeek", "label": "Were you sick last week, or did anything prevent you from doing your normal physical activities?", "required":false, "type": "yesno", "additionalInfo": true }
@@ -38,12 +38,13 @@
     } 
   ],
   "submit": {
-    "endpoint":"https://api.omny.link/msg/",
+    "endpoint":"https://api.omny.link/msg/corshamprimary/",
+    "message":"New Questionnaire Response",
     "msgName":"omny.enquiry.json",
     "successPage":"thanks.html",
     "text":"Thanks for your time.",
     "title":"That's it!",
     "buttonText":"Submit Now",
-    "tenantId":"sdu"
+    "tenantId":"corshamprimary"
   }
 }
