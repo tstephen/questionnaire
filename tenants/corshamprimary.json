@@ -1,0 +1,103 @@
+{ 
+  "id": "corshamprimary", 
+  "name": "Corsham Primary",
+  "theme": {
+    "logoUrl": "https://tstephen.github.io/questionnaire/images/blinking-logo2.gif",
+    "iconUrl": "https://tstephen.github.io/questionnaire/images/icon/ivern.ico",
+    "headingColor":"#067c9c",
+    "subHeadingColor":"#71495C",
+    "bodyColor":"#535353",
+    "accentColor":"#bf1a55",
+    "iconColor":"#71495C"
+  },
+  "show": { 
+    "account":false, "activityAnalysis":false, "activityTracker":false,
+    "budget":false, "companyBackground":false, "contact":false, "declaredSource":false,
+    "documents":false, "financials":false,
+    "marketing":false, "marketingDigital":false, "merge":false,
+    "orders":false, "orderItems":false, "supportBar": true
+  },
+  "accountFields": [ 
+  ],
+  "contactActions": [
+    { "name": "Add order", "ref": "AddOrderToContact", "url": true  },
+    { "name": "Add task", "ref": "SimpleToDo", "url": true },
+    { "name": "Alert owner", "ref": "SendAlertToOwner"  },
+    { "name": "Send email", "ref": "SendMemo", "url": true  }
+  ],
+  "contactFields": [ 
+    { "name": "className", "label": "Class" },
+    { "name": "veryActivePE", "label": "Very Active PE" },
+    { "name": "breakActivity" },
+    { "name": "lunchActivity" },
+    { "name": "afterSchoolActivity", "label": "After School Activity" },
+    { "name": "weekendActivity" },
+    { "name": "freeTimeActivity", "label": "Free Time Activity" },
+    { "name": "blockersBreaks" },
+    { "name": "blockersOutOfSchool", "label": "Blockers out of school" },
+    { "name": "sickLastWeek", "label": "Sick last week?" }
+
+  ],
+  "toolbar": [
+    { "url": "contacts.html", "icon": "omny-icon-address-book", "description": "Find a particular contact", "name": "Contact Management" },
+    { "url": "memo.html", "icon": "glyphicon-envelope", "name": "Templates", "description": "Create and edit your message templates", "role": "admin"  },
+    { "url": "definitions.html", "icon": "omny-icon-process-model", "description": "View your process definitions here", "name": "Process Definitions" },    
+    { "url": "admin/users.html", "icon": "omny-icon-user", "name": "User Management", "description": "Manage users", "role": "super_admin" },
+    { "url": "status.html", "icon": "glyphicon-thumbs-up", "name": "Status", "description": "Check various aspects of the tenant's configuration", "role": "admin" }
+  ],
+  "partials": [
+    { "name": "corshamprimaryContactExtension", "url": "/partials/contact-extension.html"},
+
+    { "name": "corshamprimarySimpleToDo", "url": "/partials/simple-todo.html"},
+    { "name": "corshamprimarySendMemo", "url": "/partials/pick-memo.html"}
+  ],
+  "processes": [
+    { "name": "Add activity to contact", "ref": "AddActivityToContact", "url": "processes/link/omny/custmgmt/AddActivityToContact.bpmn" },
+    { "name": "Add note to contact", "ref": "AddNoteToContact", "url": "processes/link/omny/custmgmt/AddNoteToContact.bpmn" },
+    { "name": "Create contact and account", "ref": "CreateContactAndAccount", "url": "processes/link/omny/custmgmt/CreateContactAndAccount.bpmn" },
+    { "name": "Record an enquiry", "ref": "RecordEnquiry", "url": "processes/link/omny/website/RecordEnquiry.bpmn" },
+    { "name": "Register a user", "ref": "RegisterOmnyContact", "url": "processes/link/omny/website/RegisterOmnyContact.bpmn" },
+    { "name": "Reset user's password", "ref": "ResetPassword", "url": "processes/link/omny/support/ResetPassword.bpmn" },
+    { "name": "Select enquiry response", "ref": "SelectEnquiryResponse", "url": "processes/link/omny/mail/SelectDefaultEnquiryResponse.bpmn" },
+    { "name": "Send memo", "ref": "SendMemo", "url": "processes/link/omny/mail/SendMemo.bpmn" },
+    { "name": "Send alert", "ref": "SendAlert", "url": "processes/link/omny/alerts/SendAlertMemo.bpmn" },
+    { "name": "Send alert to contact's owner", "ref": "SendAlertToOwner", "url": "processes/link/omny/alerts/SendAlertToOwner.bpmn" },
+    { "name": "Catch all", "ref": "CatchAllProcess", "url": "processes/link/omny/support/CatchAllProcessPostToSlack.bpmn" },
+    { "name": "Add task", "ref": "SimpleToDo", "url": "processes/link/omny/casemgmt/SimpleToDo.bpmn" }
+  ],
+  "serviceLevel": {
+    "inactiveStages":["discovery","review"],
+    "initialResponseThreshold":7
+  },
+  "templates": [
+    { "name": "ContactAlert", "ref": "ContactAlert" },
+    { "name": "NotifyEnquiry", "ref": "NotifyEnquiry" },
+    { "name": "NotifyToDo", "ref": "NotifyToDo" },
+    { "name": "ResetPassword", "ref": "ResetPassword" },
+    { "name": "ThankYouForEnquiry", "ref": "ThankYouForEnquiry" },
+    { "name": "WelcomeNewUser", "ref": "WelcomeNewUser" }
+  ],
+  "typeaheadControls": [
+    { "name": "accountTypes", "ref": "#curAccountType", "url": "/data/account-types.json"},
+    { "name": "commsPreference", "ref": "#curCommsPreference", "url": "/data/comms-preference.json"},
+    { "name": "countries", "ref": "#curCountry", "url": "/data/countries.json"},
+    { "name": "enquiryTypes", "ref": "#curEnquiryType", "values": [
+        {  "id": "Explosives", "name": "Explosives"  },
+        {  "id": "Insurance", "name": "Insurance"  }
+      ]
+    },
+    { "name": "owners", "ref": "#curOwner", "url": "/data/omny/owners.json"},
+    { "ref": "#who", "url": "/data/omny/owners.json"},
+    { "ref": "#notify", "url": "/data/omny/owners.json"},
+    { "name": "media", "ref": "#curMedium", "url": "/data/media.json"},
+    { "name": "sectors", "ref": "#curSector", "url": "/data/omny/sectors.json"},
+    { "name": "sources", "ref": "#curSource", "url": "/data/sources.json"},
+    { "name": "stages", "ref": "#curStage", "url": "/data/stages.json"},
+    { "name": "status", "ref": "#curStatus", "url": "/data/status.json"},
+    { "ref": "#orderStatus", "url": "/data/status.json"}
+  ],
+  "workActions": [
+    { "name": "Add task", "ref": "SimpleToDo", "url": true }
+  ]
+}
+
