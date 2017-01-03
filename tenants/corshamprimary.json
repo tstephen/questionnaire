@@ -40,6 +40,7 @@
   ],
   "toolbar": [
     { "url": "contacts.html", "icon": "omny-icon-address-book", "description": "Find a particular contact", "name": "Contact Management" },
+    { "url": "corshamprimary/analytics/contacts/activityReport", "icon": "omny-icon-address-book", "name": "First Report" },
     { "url": "memo.html", "icon": "glyphicon-envelope", "name": "Templates", "description": "Create and edit your message templates", "role": "admin"  },
     { "url": "definitions.html", "icon": "omny-icon-process-model", "description": "View your process definitions here", "name": "Process Definitions" },    
     { "url": "admin/users.html", "icon": "omny-icon-user", "name": "User Management", "description": "Manage users", "role": "super_admin" },
@@ -64,6 +65,10 @@
     { "name": "Send alert to contact's owner", "ref": "SendAlertToOwner", "url": "processes/link/omny/alerts/SendAlertToOwner.bpmn" },
     { "name": "Catch all", "ref": "CatchAllProcess", "url": "processes/link/omny/support/CatchAllProcessPostToSlack.bpmn" },
     { "name": "Add task", "ref": "SimpleToDo", "url": "processes/link/omny/casemgmt/SimpleToDo.bpmn" }
+  ],
+  "reports": [
+    { "name": "Activity Report", "ref": "activityReport", "url": "https://tstephen.github.io/questionnaire/reports/activity.jrxml" },
+    { "name": "Activity Report (local)", "ref": "activityReportLocal", "url": "http://localhost:8085/reports/activity.jrxml" }
   ],
   "serviceLevel": {
     "inactiveStages":["discovery","review"],
