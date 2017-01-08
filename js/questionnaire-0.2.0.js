@@ -142,6 +142,7 @@ console.log('  response:'+JSON.stringify(response));
             msg_name:q.submit.msgName,
             action:'p_proxy'
           },
+          dataType:'text',
           success: completeHandler = function(data, textStatus, jqXHR) {
             console.log('data: '+ data);
             window.location.href = q.submit.successPage;
