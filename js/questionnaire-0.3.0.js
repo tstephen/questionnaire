@@ -26,8 +26,8 @@ var ractive = new Ractive({
       return name.toLowerCase().replace(/ /g,'_').replace('(','').replace(')','');
     },
     stdPartials: [
-      { "name": "questionnaire", "url": "/partials/questionnaire.html"},
-      { "name": "questionnaireContact", "url": "/partials/questionnaire-contact.html"}
+      { "name": "questionnaire", "url": "partials/questionnaire.html"},
+      { "name": "questionnaireContact", "url": "partials/questionnaire-contact.html"}
     ],
     toQName: function(i,j) {
 if (ractive==undefined) return;
