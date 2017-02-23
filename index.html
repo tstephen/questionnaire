@@ -1,251 +1,53 @@
 <!DOCTYPE html>
 <html class="no-js">
 <head>
-  <title>Questionnaire</title>
-  <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <title>Questionnaire</title>
   <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
-  <link rel="stylesheet" type="text/css" href="css/questionnaire-0.1.0.css"/>
-  <link rel="icon" type="image/png" href="https://api.omny.link/images/icon/omny-icon-16x16.png">
+  <link rel="stylesheet" type="text/css" href="css/questionnaire-0.3.0.css"/>
 </head>
 
-<body>
+<body data-questionnaire-name="cps-questionnaire">
 
-<!--[if lt IE 8]>
-<div class="alert alert-warning">
-  You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.
-</div>
-<![endif]-->
-
-<nav class="navbar navbar-inverse navbar-static-top">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="http://omny.link/">
-        <h2 style="margin: 14px; font-size: 1em;">
-        <span style="font-style: italic; font-size: 0.7em; color: #9d9d9d; padding-right: 3px;">powered by </span>
-        <span style="color: #0e9acd; font-size: 1em;">Omny</span>
-        <span style="color: #ff6c06; font-size: 1em;">Link</span></h2>
-      </a>
-    </div>
-  </div><!-- /.container -->
-</nav>
-  
-<!--
-Site Title
-==========
-If you are displaying your site title in the "brand" link in the Bootstrap navbar, 
-then you probably don't require a site title. Alternatively you can use the example below. 
-See also the accompanying CSS example in css/bst.css .
-
-<div class="container">
-  <div class="row">
-    <div class="col-sm-12">
-      <h1 id="site-title">
-        <a class="text-muted" href="<?php echo home_url('/'); ?>" title="<?php echo esc_attr(get_bloginfo('name', 'display')); ?>" rel="home"><?php bloginfo('name'); ?></a>
-      </h1>
-    </div>
+  <!--[if lt IE 8]>
+  <div class="alert alert-warning">
+    You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.
   </div>
-</div>
--->
+  <![endif]-->
+
+  <nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#"></a>
+      </div>
+    </div><!-- /.container -->
+  </nav>
 
   <div class="container">
-    <div class="row" id="containerSect"> </div>
+    <div class="row" id="containerSect">
     </div><!-- /.row -->
   </div><!-- /.container -->
 
   <footer class="site-footer">
   </footer>
 
-  <script id="questionnaireContact" type="text/html">    
-        <section id="organisationSect">
-          <h2>{{q.contact.title}}</h2>
-          <div class="form-group">
-            <label for="contact.firstName">{{q.contact.firstName.label}}</label>
-            <div>
-              <input class="form-control col-md-6 col-sm-12 col-xs-12" id="contact.firstName" placeholder="{{q.contact.firstName.placeholder}}" required style="width: 49%" value="{{contact.firstName}}">
-              <input class="form-control col-md-6 col-sm-12 col-xs-12" id="contact.lastName" placeholder="{{q.contact.lastName.placeholder}}" required style="margin-left:2%;width:49%" value="{{contact.lastName}}">
-            </div>
-          </div>
-          {{#if q.contact.email || q.contact.phone}}
-            <div class="form-group">
-              <label for="contact.email">{{q.contact.email.label}}</label>
-<label for="contact.phone">{{q.contact.phone.label}}</label>
-              <div>
-                {{#if q.contact.email}}
-                  <input class="form-control col-md-6 col-sm-12 col-xs-12" id="contact.email" type="email" placeholder="{{q.contact.email.placeholder}}" required style="width: 49%" value="{{contact.email}}">
-                {{/if}}
-                {{#if q.contact.phone}}
-                  <input class="form-control col-md-6 col-sm-12 col-xs-12" id="contact.phone" type="tel" placeholder="{{q.contact.phone.placeholder}}" required style="margin-left:2%;width:49%" value="{{contact.phone}}">
-                {{/if}}
-              </div>
-            </div>
-          {{/if}}
-          {{#if contact.account}}
-            <div class="form-group">
-              <label for="contact.account.name">{{q.contact.account.name.label}}</label>
-              <input class="form-control" id="contact.account.name" placeholder="{{q.contact.account.name.placeholder}}" required value="{{contact.account.name}}">
-            </div>
-          {{/if}}
-          {{#if q.contact.account.description}}
-            <div class="form-group">
-              <label for="contact.account.description">{{q.contact.account.description.label}}</label>
-              <textarea class="form-control" id="contact.account.description" placeholder="{{q.contact.account.description.placeholder}}" value="{{contact.account.description}}"></textarea>
-            </div>
-          {{/if}}
-        </section>
+  <script id="template" type="text/html">
+    {{>questionnaire}}
   </script>
 
-  <script id="template" type="text/html">    
-
-    <section class="col-md-12 questionnaire">
-      {{#q.about.title}}
-        <h1 class="title">{{q.about.title}}</h1>
-      {{/q.about.title}}
-      {{#q.about.subTitle}}
-        <h2 class="sub-title">{{q.about.subTitle}}</h2>
-      {{/q.about.subTitle}}
-      {{#q.about.instructions}}
-        <div class="alert-info instructions">{{{q.about.instructions}}}</div>
-      {{/q.about.instructions}}
-
-      <div id="messages" class="messages"></div>
-      <form class="form" id="questionnaireForm">
-        {{#q.contact.top}}
-          {{>questionnaireContact}}
-        {{/q.contact.top}}
-
-        <div style="clear:both"></div>
-        {{#q.qualifyingQuestions}}
-        <section id="productsSect" style="padding-top:30px">
-          <h2>Products and Services supplied</h2>
-          <div class="form-group">
-            <label for="contact.account.products.category">Category</label>
-            <select class="form-control" id="contact.account.products.category" on-blur="matchProducts()" multiple placeholder="Please select the category or categories you supply" required size="17" value="{{contact.account.products.category}}">
-              {{#defraDeccCategories}}
-                <option name="{{description}}">{{description.toLabel()}}</option>
-              {{/defraDeccCategories}}
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="contact.account.products.eClass">List of eClasses supplied</label>
-            <input class="form-control" id="contact.account.products.eClass" type="text" placeholder="Please list the eClass codes you supply, if known" value="{{contact.account.products.eClass}}">
-          </div>
-        </section>
-        {{/}}
-
-        <section id="questionnaireSect">
-          <h2>{{q.questionsTitle}}</h2>
-          {{#q.questionCategories:i}}
-            <section id="{{category}}" style="display:{{always ? 'inline' : 'none'}}">
-            <h3>{{category.toLeadingCaps()}}</h3>
-            <ol>
-              {{#each questions:j}}
-                <li class="form-group">
-                  {{#hint}}
-                    <span class="glyphicon glyphicon-question-sign pull-right" onclick="ractive.toggleFieldHint('{{id}}')" title="help for {{label}}"></span>
-                  {{/hint}}
-                  <label for="{{id}}">{{label}}</label>
-                  <p class="help-block hidden" id="{{id}}Hint">{{{hint}}}</p>
-                  {{#if type == 'yesno' || type == 'yesnona'}}
-                    <div class="radio">
-                      <label>
-                        <input type="radio" id="{{id}}" on-click="revealDetails(id)" name="{{this.response}}" {{# required }}required="true"{{/}} value="true"/>
-                          Yes
-                      </label>
-                    </div>
-                    <div class="radio">
-                      <label>
-                        <input type="radio" id="{{id}}" name="{{this.response}}" {{# required }}required="true"{{/}} value="false"/>
-                          No
-                      </label>
-                    </div>
-                    {{#if type == 'yesnona'}}
-                      <div class="radio">
-                        <label>
-                          <input type="radio" id="{{id}}" name="{{this.response}}" value="na"/>
-                            Don't know
-                        </label>
-                      </div>
-                    {{/if}}
-                  {{/if}}
-                  {{#if type == 'text'}}
-                    <input type="{{type}}" class="form-control" id="{{id}}" placeholder="{{placeholder}}" value="{{this.response}}"/>
-                  {{/if}}
-                  {{#if type == 'radio'}}
-                    {{#optionNames:k}}
-                      <div class="radio">
-                        <label>
-                          <input type="radio" id="{{toId(.)}}" name="{{q.questionCategories[i].questions[j].response}}" value="{{k}}-{{.}}">
-                          {{.}}
-                        </label>
-                      </div>
-                    {{/}}
-                  {{/if}}
-                  {{#if type == 'matrix'}}
-                    <table>
-                      <thead>
-                        <tr>
-                          <th>&nbsp;</th>
-                          {{#optionHeadings}}
-                            <th>{{.}}</th>
-                          {{/optionHeadings}}
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {{#optionNames:k}}
-                          <tr>
-                            <td class="col-md-3">{{.}}</td>
-                            <td class="col-md-3"><input id="{{toId(.)}}_implemented" type="checkbox" value="{{q.questionCategories[i].questions[j].optionValues[k]}}"/></td>
-                            <td class="col-md-3"><input id="{{toId(.)}}_consider" type="checkbox" value="{{..optionValues[k]}}"/></td>
-                            <td class="col-md-3"><input id="{{toId(.)}}_impractical" type="checkbox" on-blur="saveMatrix(toId(.)+'_impractical',i,j,k)"/></td>
-                          </tr>
-                        {{/optionNames}}
-                      </tbody>
-                    </table> 
-                  {{/if}}
-                  {{#additionalInfo}}
-                    <input class="form-control hidden" id="{{id}}Details" placeholder="You may provide additional details here" value="{{this.responseDetails}}"/>
-                  {{/additionalInfo}}
-                </li>
-              {{/each}}
-            </ol>
-            </section>
-          {{/each}}
-        </section>
-
-        {{#q.contact.bottom}}
-          {{>questionnaireContact}}
-        {{/q.contact.bottom}}
-
-        <div style="clear:both;"></div>
-        <section>
-          <h2>{{q.submit.title}}</h2>
-          <div id="messages2" class="messages"></div>
-          <div class="form-group">{{{q.submit.text}}}</div>
-          <div class="form-group">
-            <button class="btn btn-primary" on-click="sendMessage()" type="button">{{q.submit.buttonText}}</button>
-          </div>
-        </section>
-      </form>
-    </section>
-  </script>
-  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
   <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-  <!-- Include all compiled plugins (below), or include individual files as needed -->
-  <!--script src="js/bootstrap.min.js"></script>
-  <script src="js/bootstrap3-typeahead.js"></script>-->
   <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
   <script src='js/0.7.3/ractive.min.js'></script>
   <script src="js/string-functions-0.1.0.js"></script>
-  <script src="js/questionnaire-0.2.0.js"></script>
+  <script src="js/questionnaire-0.3.0.js"></script>
 </body>
 </html>
 

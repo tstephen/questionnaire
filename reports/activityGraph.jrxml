@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-02-20T22:30:52 -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Activity Report" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="800" leftMargin="20" rightMargin="20" topMargin="30" bottomMargin="30" uuid="6e843fe2-ce72-4257-a4c3-1df03728dc95">
+<!-- 2017-02-20T22:28:07 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Activity Report" pageWidth="842" pageHeight="595" whenNoDataType="AllSectionsNoDetail" columnWidth="800" leftMargin="20" rightMargin="20" topMargin="30" bottomMargin="30" whenResourceMissingType="Empty" uuid="6e843fe2-ce72-4257-a4c3-1df03728dc95">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -113,7 +113,7 @@ Last Week]]></text>
 		</band>
 	</pageHeader>
 	<detail>
-		<band height="37" splitType="Stretch">
+		<band height="230" splitType="Stretch">
 			<textField>
 				<reportElement x="0" y="3" width="40" height="24" forecolor="#6F6F71" uuid="d844cada-1aa4-4208-9fc1-dcdf62a72235"/>
 				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
@@ -135,33 +135,57 @@ Last Week]]></text>
 				<textFieldExpression><![CDATA[$F{breakActivity}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="242" y="3" width="58" height="24" forecolor="#6F6F71" uuid="4b3db8e8-bc26-4748-aac0-eb4a31086d97"/>
+				<reportElement x="242" y="3" width="40" height="24" forecolor="#6F6F71" uuid="4b3db8e8-bc26-4748-aac0-eb4a31086d97"/>
 				<textFieldExpression><![CDATA[$F{lunchActivity}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="304" y="3" width="66" height="24" forecolor="#6F6F71" uuid="4b3db8e8-bc26-4748-aac0-eb4a31086d97"/>
+				<reportElement x="304" y="3" width="40" height="24" forecolor="#6F6F71" uuid="4b3db8e8-bc26-4748-aac0-eb4a31086d97"/>
 				<textFieldExpression><![CDATA[$F{afterSchoolActivity}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="374" y="3" width="36" height="24" forecolor="#6F6F71" uuid="4b3db8e8-bc26-4748-aac0-eb4a31086d97"/>
+				<reportElement x="374" y="3" width="40" height="24" forecolor="#6F6F71" uuid="4b3db8e8-bc26-4748-aac0-eb4a31086d97"/>
 				<textFieldExpression><![CDATA[$F{weekendActivity}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="417" y="3" width="50" height="24" forecolor="#6F6F71" uuid="4b3db8e8-bc26-4748-aac0-eb4a31086d97"/>
+				<reportElement x="417" y="3" width="40" height="24" forecolor="#6F6F71" uuid="4b3db8e8-bc26-4748-aac0-eb4a31086d97"/>
 				<textFieldExpression><![CDATA[$F{freeTimeActivity}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="470" y="3" width="70" height="24" forecolor="#6F6F71" uuid="4b3db8e8-bc26-4748-aac0-eb4a31086d97"/>
+				<reportElement x="470" y="3" width="40" height="24" forecolor="#6F6F71" uuid="4b3db8e8-bc26-4748-aac0-eb4a31086d97"/>
 				<textFieldExpression><![CDATA[$F{blockersBreak}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="544" y="3" width="70" height="24" forecolor="#6F6F71" uuid="4b3db8e8-bc26-4748-aac0-eb4a31086d97"/>
+				<reportElement x="544" y="3" width="40" height="24" forecolor="#6F6F71" uuid="4b3db8e8-bc26-4748-aac0-eb4a31086d97"/>
 				<textFieldExpression><![CDATA[$F{blockersOutOfSchool}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="619" y="3" width="101" height="24" forecolor="#6F6F71" uuid="4b3db8e8-bc26-4748-aac0-eb4a31086d97"/>
+				<reportElement x="619" y="3" width="40" height="24" forecolor="#6F6F71" uuid="4b3db8e8-bc26-4748-aac0-eb4a31086d97"/>
 				<textFieldExpression><![CDATA[$F{sickLastWeek}]]></textFieldExpression>
 			</textField>
+			<areaChart>
+				<chart evaluationTime="Report">
+					<reportElement x="720" y="30" width="200" height="200" uuid="58b2ab60-fa85-4c05-9cda-fa75c2adbf3f"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA["SERIES 1"]]></seriesExpression>
+						<categoryExpression><![CDATA[0]]></categoryExpression>
+						<valueExpression><![CDATA[0]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<areaPlot>
+					<plot/>
+					<categoryAxisFormat>
+						<axisFormat/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat/>
+					</valueAxisFormat>
+				</areaPlot>
+			</areaChart>
 		</band>
 	</detail>
 </jasperReport>

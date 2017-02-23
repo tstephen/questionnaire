@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2017-02-21T00:45:33 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="area" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f57b7117-f658-4726-8bbc-309ca6feadb7">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="OL_DB"/>
+	<queryString language="SQL">
+		<![CDATA[select * from  ol_db.cp_report2 ]]>
+	</queryString>
+	<field name="ID_" class="java.lang.String"/>
+	<field name="PROC_INST_ID_" class="java.lang.String"/>
+	<field name="EXECUTION_ID_" class="java.lang.String"/>
+	<field name="NAME_" class="java.lang.String"/>
+	<field name="TEXT_" class="java.lang.String"/>
+	<field name="CREATE_TIME_" class="java.sql.Timestamp"/>
+	<field name="LAST_UPDATED_TIME_" class="java.sql.Timestamp"/>
+	<field name="FIRST_" class="java.lang.String"/>
+	<field name="LAST_" class="java.lang.String"/>
+	<field name="CLASS_" class="java.lang.String"/>
+	<field name="GENDER_" class="java.lang.String"/>
+	<field name="CODE_" class="java.lang.String"/>
+	<field name="PE_" class="java.lang.String"/>
+	<field name="BREAK_" class="java.lang.String"/>
+	<field name="LUNCH_" class="java.lang.String"/>
+	<field name="AFTER_SCH_" class="java.lang.String"/>
+	<field name="WE_" class="java.lang.String"/>
+	<field name="FT_" class="java.lang.String"/>
+	<field name="BLOCK_SCH_" class="java.lang.String"/>
+	<field name="BLOCK_OOS_" class="java.lang.String"/>
+	<field name="SICK_" class="java.lang.String"/>
+	<sortField name="CLASS_" order="Descending"/>
+	<group name="CLASS_">
+		<groupExpression><![CDATA[$F{CLASS_}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
