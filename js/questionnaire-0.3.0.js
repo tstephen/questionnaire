@@ -17,11 +17,11 @@ var ractive = new Ractive({
   template: '#template',
   data: {
     q: function () {
-      return ractive.toQuestionnaire(ractive.get('questionCategories'));
+      return ractive.toQuestionnaire(ractive.get('categories'));
     },
     easingDuration: 500, // millis
     fadeOutMessages: true,
-    questionnaireName: $('body[data-questionnaire-name]').length == 0 ? 'example1' : $('body').data('questionnaire-name'),
+    questionnaireDef: $('body[data-questionnaire]').length == 0 ? 'example1' : $('body').data('questionnaire'),
     toId: function(name) {
       return name.toLowerCase().replace(/ /g,'_').replace('(','').replace(')','');
     },
@@ -31,7 +31,7 @@ var ractive = new Ractive({
     ],
     toQName: function(i,j) {
 if (ractive==undefined) return;
-      return ractive.get('q.questionCategories.'+i+'.questions.'+j+'.id');
+      return ractive.get('q.categories.'+i+'.questions.'+j+'.id');
     }
   },
   applyBranding: function() {
@@ -47,62 +47,41 @@ if (ractive==undefined) return;
   },
   fetch: function() {
     console.info('fetch');
+    var url = ractive.get('questionnaireDef');
+    if (!url.startsWith('http')) url = 'js/'+ractive.get('questionnaireDef')+'.json';
     $.ajax({
        type: 'GET',
-       url: 'js/'+ractive.get('questionnaireName')+'.json',
+       url: url,
        dataType: 'json',
        success: function(data, textStatus, jqxhr) {
          console.log('success:'+data);
-         $.each(data.questionCategories, function(i,d) {
+         $.each(data.categories, function(i,d) {
            $.each(d.questions, function(j,e) {
              e.optionValues = [];
            });
          });
          
+         // sane defaults
+         if (data['activeCategory']==undefined) data.activeCategory = 0;
+         if (data['about']==undefined) data.about = { };
+         if (data.about['branding']!=undefined) $('nav.navbar').show();
+         if (data.about['title']==undefined) data.about.title = 'Questionnaire';
+         if (data.about['options']==undefined) data.about.options = { };
+         if (data.about.options['categoryAtATime']==undefined) data.about.options.categoryAtATime = true;
+         if (data['submit']==undefined) data.submit = { };
+         if (data.submit['buttonText']==undefined) data.submit.buttonText = 'Submit Now';
+         if (data.submit['successPage']==undefined) data.submit.successPage = 'thanks.html';
+         if (data.submit['title']==undefined) data.submit.title = "That's it!";
+         if (data.submit['text']==undefined) data.submit.text = 'Thanks for your time.';
+
          ractive.set('q', data);
          ractive.applyBranding();
-       }
-    });
-  },
-  getRefData: function(name,ctrlSelector) {
-    $.ajax({
-       type: 'GET',
-       url: ractive.get('themeDir')+'/js/'+name+'.json',
-       dataType: 'json',
-       success: function(data, textStatus, jqxhr) {
-         console.log('success:'+data);
-         ractive.merge(name, data._embedded[name]);
-         $(ctrlSelector).typeahead({ source:data });
-       }
-    });
-  },
-  getRemoteRefData: function(name,ctrlSelector) {
-    $.ajax({
-       type: 'GET',
-       url: ractive.getServer()+'/'+name,
-       crossDomain: true,
-       dataType: 'json',
-       username: localStorage['username'],
-       password: localStorage['password'],
-       headers: {
-         "Authorization": "Basic " + btoa(localStorage['username'] + ":" + localStorage['password'])
-       },
-       xhrFields: {withCredentials: true},
-       success: function(data, textStatus, jqxhr) {
-         console.log('success:'+data);
-         ractive.merge(name, data._embedded[name]);
-         $(ctrlSelector).typeahead({ source:data });
+         if (ractive.fetchCallbacks!=null) ractive.fetchCallbacks.fire( data );
        }
     });
   },
   hideMessage: function() {
     $('#messages, .messages').hide();
-  },
-  initAutoComplete: function() {
-    //ractive.getRefData('defraDeccCategories',"#curDefraDeccCategory");
-    //ractive.getRefData('defraDeccCodes',"#curDefraDeccCode")
-    //ractive.getRefData('eClassS2s','#curEClass');
-    //ractive.getRefData('financialYears','#curFinancialYear');
   },
   loadStandardPartial: function(name,url) {
     //console.log('loading...: '+d.name)
@@ -137,7 +116,7 @@ if (ractive==undefined) return;
   },
   matchProducts: function() {
     var matched = false;
-    jQuery.each(ractive.get('questionCategories'), function(i,d) {
+    jQuery.each(ractive.get('categories'), function(i,d) {
       jQuery.each(ractive.get('contact.account.products.category'), function(j,e) {
         console.log(d.defraRelevant+ ' match : '+e+'?');
         if ((d.always!=undefined && d.always==true) || (d.defraRelevant!=undefined && d.defraRelevant.indexOf(e.toUpperCase().replace(/ /g, '_'))!=-1)) { 
@@ -162,26 +141,30 @@ if (ractive==undefined) return;
   },
   saveMatrix: function(id,cat,q,opt) {
     console.info('saveMatrix: id: '+id+',cat:'+cat+',q:'+q+',opt:'+opt);
-    var response = ractive.get('q.questionCategories.'+cat+'.questions.'+q+'.response');
+    var response = ractive.get('q.categories.'+cat+'.questions.'+q+'.response');
 console.log('  response:'+JSON.stringify(response));
     if (response==undefined) response = {}; 
 console.log('  response:'+JSON.stringify(response));
     response[id] = $('#'+id).prop('checked');
 console.log('  checked:'+$('#'+id).prop('checked'));
 console.log('  response:'+JSON.stringify(response));
-    ractive.set('q.questionCategories.'+cat+'.questions.'+q+'.response',response);
+    ractive.set('q.categories.'+cat+'.questions.'+q+'.response',response);
   },
   sendMessage: function() {
     if (document.forms['questionnaireForm'].checkValidity()) {
       var q = ractive.get('q');
-      var quCustomFields = ractive.toQuestionnaire(q.questionCategories);
+      var quCustomFields = ractive.toQuestionnaire(q.categories);
       var contact = ractive.get('contact');
-      if (contact['enquiryType']==undefined) contact.enquiryType = q.about.name;
-      if (contact['email']==undefined) contact.email = q.about.email;
-      if (contact['owner']==undefined) contact.owner = q.about.email;
-      if (contact['message']==undefined) contact.message = q.submit.message;
-      if (contact['stage']==undefined) contact.stage = 'New Questionnaire';
-      if (contact['tenantId']==undefined) contact.tenantId = q.submit.tenantId;
+      if (contact != undefined) {
+        if (contact['enquiryType']==undefined) contact.enquiryType = q.about.name;
+        if (contact['email']==undefined) contact.email = q.about.email;
+        if (contact['owner']==undefined) contact.owner = q.about.email;
+        if (contact['message']==undefined) contact.message = q.submit.message;
+        if (contact['stage']==undefined) contact.stage = 'New Questionnaire';
+        if (contact['tenantId']==undefined) contact.tenantId = q.submit.tenantId;
+      } else {
+        contact = { };
+      }
       contact.customFields = quCustomFields; 
       console.log('Sending message: '+JSON.stringify(contact));
       // $('html, body').css("cursor", "wait");
@@ -192,7 +175,7 @@ console.log('  response:'+JSON.stringify(response));
           dataType:'text',
           success: completeHandler = function(data, textStatus, jqXHR) {
             console.log('data: '+ data);
-            window.location.href = q.submit.successPage+'?questionnaireName='+ractive.get('questionnaireName');
+            window.location.href = q.submit.successPage+'?questionnaire='+ractive.get('questionnaireDef');
           }
         });
     } else {

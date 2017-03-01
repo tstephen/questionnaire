@@ -26,7 +26,7 @@
      "lastName": { "placeholder": "Please enter your last name" }
   },
   "questionsTitle": "Please tell us ...",
-  "questionCategories": [
+  "categories": [
     { 
       "name": "About you", "always": true, "questions": [
         { "name": "className", "hint":"", "label": "Your Class", "required": true, "type": "text" },

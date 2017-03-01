@@ -1,13 +1,25 @@
 <section class="col-md-12 questionnaire">
-  {{#q.about.title}}
-    <h1 class="title">{{q.about.title}}</h1>
-  {{/q.about.title}}
-  {{#q.about.subTitle}}
-    <h2 class="sub-title">{{q.about.subTitle}}</h2>
-  {{/q.about.subTitle}}
-  {{#q.about.instructions}}
-    <div class="alert-info instructions">{{{q.about.instructions}}}</div>
-  {{/q.about.instructions}}
+    {{#q.about.title}}
+      <h1 class="title">
+        {{#if q.about.options.previous}}
+          <a href="{{q.about.options.previous}}">
+            <span class=" glyphicon glyphicon-chevron-left"></span>
+          </a>
+        {{/if}}
+        {{q.about.title}}
+        {{#if q.about.options.next}}
+          <a href="index.html">
+            <span class="pull-right glyphicon glyphicon-chevron-right"></span>
+          </a>
+        {{/if}}
+      </h1>
+    {{/q.about.title}}
+    {{#q.about.subTitle}}
+      <h2 class="sub-title">{{q.about.subTitle}}</h2>
+    {{/q.about.subTitle}}
+    {{#q.about.instructions}}
+      <div class="alert-info instructions">{{{q.about.instructions}}}</div>
+    {{/q.about.instructions}}
 
   <div id="messages" class="messages"></div>
   <form class="form" id="questionnaireForm">
@@ -39,8 +51,8 @@
 
       {{#if q.about.options.categoryAtATime}}
         <div class="row bs-wizard" style="border-bottom:0;">
-          {{#q.questionCategories:i}}
-            <div class="col-xs-3 bs-wizard-step {{#i<q.activeCategory}}complete{{elseif i==q.activeCategory}}active{{else}}disabled{{/}}">
+          {{#q.categories:i}}
+            <div class="col-xs-2 bs-wizard-step {{#if (q.activeCategory<3 && i>5) || (q.activeCategory>=3 && (i<q.activeCategory-3 || i>q.activeCategory+2))}}hidden{{elseif i<q.activeCategory}}complete{{elseif i==q.activeCategory}}active{{else}}disabled{{/if}}">
               <div class="text-center bs-wizard-stepnum">
                 <a onclick="ractive.set('q.activeCategory',{{i}})">{{name}}</a>
               </div>
@@ -52,7 +64,7 @@
         </div>
       {{/if}}
 
-      {{#q.questionCategories:i}}
+      {{#q.categories:i}}
         <section id="{{name}}" 
           {{#if q.about.options.categoryAtATime}}
             style="display:{{i==q.activeCategory ? 'inline' : 'none'}}"
@@ -65,10 +77,10 @@
           {{#each questions:j}}
             <li class="form-group">
               {{#hint}}
-                <span class="glyphicon glyphicon-question-sign pull-right" onclick="ractive.toggleFieldHint('{{name}}')" title="help for {{label}}"></span>
+                <span class="glyphicon glyphicon-question-sign pull-right" onclick="ractive.toggleFieldHint('{{id}}')" title="help for {{label}}"></span>
               {{/hint}}
               <label for="{{name}}">{{label}}</label>
-              <p class="help-block hidden" id="{{name}}Hint">{{{hint}}}</p>
+              <p class="help-block hidden" id="{{id}}Hint">{{{hint}}}</p>
               {{#if type == 'yesno' || type == 'yesnona'}}
                 <div class="radio">
                   <label>
@@ -94,7 +106,7 @@
                 {{#optionNames:k}}
                   <div class="radio">
                     <label>
-                      <input type="radio" id="{{toId(.)}}" name="{{q.questionCategories[i].questions[j].response}}" value="{{k}}-{{.}}">
+                      <input type="radio" id="{{toId(.)}}" name="{{q.categories[i].questions[j].response}}" value="{{k}}-{{.}}">
                       {{.}}
                     </label>
                   </div>
@@ -113,7 +125,7 @@
                     {{#optionNames:k}}
                       <tr>
                         <td class="col-md-3">{{.}}</td>
-                        <td class="col-md-3"><input id="{{toId(.)}}_implemented" type="checkbox" value="{{q.questionCategories[i].questions[j].optionValues[k]}}"/></td>
+                        <td class="col-md-3"><input id="{{toId(.)}}_implemented" type="checkbox" value="{{q.categories[i].questions[j].optionValues[k]}}"/></td>
                         <td class="col-md-3"><input id="{{toId(.)}}_consider" type="checkbox" value="{{..optionValues[k]}}"/></td>
                         <td class="col-md-3"><input id="{{toId(.)}}_impractical" type="checkbox" on-blur="saveMatrix(toId(.)+'_impractical',i,j,k)"/></td>
                       </tr>
@@ -138,10 +150,10 @@
         </ol>
         {{#if q.about.options.categoryAtATime}}
           <button class="btn btn-default" type="button">Back</button>
-          {{#if q.activeCategory<q.questionCategories.length-1}}
+          {{#if q.activeCategory<q.categories.length-1}}
             <button class="btn btn-primary pull-right" onclick="ractive.set('q.activeCategory',ractive.get('q.activeCategory')+1)" type="button">Next</button>
           {{else}}              
-            <button class="btn btn-primary pull-right" on-click="sendMessage()" type="button">Finish</button>
+            <button class="btn btn-primary pull-right" on-click="sendMessage()" type="button">{{q.submit.buttonText}}</button>
           {{/if}}
         {{/if}}
         </section>
