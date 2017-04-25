@@ -9,7 +9,7 @@ jQuery(document).ready(function() {
   for (idx in Object.keys(params)) {
     ractive.set(Object.keys(params)[idx], params[Object.keys(params)[idx]]);
   }
-  ractive.fetch();
+  if (ractive.get('questionnaireDef')!=undefined) ractive.fetch();
 });
 
 var ractive = new Ractive({
@@ -21,7 +21,7 @@ var ractive = new Ractive({
     },
     easingDuration: 500, // millis
     fadeOutMessages: true,
-    questionnaireDef: $('body[data-questionnaire]').length == 0 ? 'example1' : $('body').data('questionnaire'),
+    questionnaireDef: $('body').data('questionnaire'),
     toId: function(name) {
       return name.toLowerCase().replace(/ /g,'_').replace('(','').replace(')','');
     },

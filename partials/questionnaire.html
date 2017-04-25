@@ -1,4 +1,4 @@
-<section class="col-md-12 questionnaire">
+<section class="col-md-12 questionnaire" style="display:none">
     {{#q.about.title}}
       <h1 class="title">
         {{#if q.about.options.previous}}
@@ -149,7 +149,7 @@
           {{/each}}
         </ol>
         {{#if q.about.options.categoryAtATime}}
-          <button class="btn btn-default" type="button">Back</button>
+          <button class="btn btn-default" onclick="ractive.set('q.activeCategory',ractive.get('q.activeCategory')-1)" type="button">Back</button>
           {{#if q.activeCategory<q.categories.length-1}}
             <button class="btn btn-primary pull-right" onclick="ractive.set('q.activeCategory',ractive.get('q.activeCategory')+1)" type="button">Next</button>
           {{else}}              
