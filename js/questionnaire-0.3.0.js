@@ -34,6 +34,19 @@ if (ractive==undefined) return;
       return ractive.get('q.categories.'+i+'.questions.'+j+'.id');
     }
   },
+  addDataList: function(d, data) {
+    $('datalist#'+d.name).remove();
+    $('body').append('<datalist id="'+d.name+'">');
+    $.each(data, function (i,e) {
+      $('datalist#'+d.name).append('<option value="'+e.name+'">'+e.name+'</option>');
+    });
+  },
+  addSelectOptions: function(selector, data) {
+    $(selector+' option').remove();
+    $.each(data, function (i,e) {
+      $(selector).append('<option value="'+e.name+'">'+e.name+'</option>');
+    });
+  },
   applyBranding: function() {
     if (ractive.get('q.about.branding.favicon')!=undefined) {
       $('head').append('<link rel="icon" type="image/png" href="'+ractive.get('q.about.branding.favicon')+'">');
@@ -60,7 +73,7 @@ if (ractive==undefined) return;
              e.optionValues = [];
            });
          });
-         
+
          // sane defaults
          if (data['activeCategory']==undefined) data.activeCategory = 0;
          if (data['about']==undefined) data.about = { };
@@ -119,7 +132,7 @@ if (ractive==undefined) return;
     jQuery.each(ractive.get('categories'), function(i,d) {
       jQuery.each(ractive.get('contact.account.products.category'), function(j,e) {
         console.log(d.defraRelevant+ ' match : '+e+'?');
-        if ((d.always!=undefined && d.always==true) || (d.defraRelevant!=undefined && d.defraRelevant.indexOf(e.toUpperCase().replace(/ /g, '_'))!=-1)) { 
+        if ((d.always!=undefined && d.always==true) || (d.defraRelevant!=undefined && d.defraRelevant.indexOf(e.toUpperCase().replace(/ /g, '_'))!=-1)) {
           console.log('  show '+d.category+': ');
           $('#'+d.category+' input[data-required="true"]').attr('required','required');
           $('#'+d.category).slideDown();
@@ -143,7 +156,7 @@ if (ractive==undefined) return;
     console.info('saveMatrix: id: '+id+',cat:'+cat+',q:'+q+',opt:'+opt);
     var response = ractive.get('q.categories.'+cat+'.questions.'+q+'.response');
 console.log('  response:'+JSON.stringify(response));
-    if (response==undefined) response = {}; 
+    if (response==undefined) response = {};
 console.log('  response:'+JSON.stringify(response));
     response[id] = $('#'+id).prop('checked');
 console.log('  checked:'+$('#'+id).prop('checked'));
@@ -165,7 +178,7 @@ console.log('  response:'+JSON.stringify(response));
       } else {
         contact = { };
       }
-      contact.customFields = quCustomFields; 
+      contact.customFields = quCustomFields;
       console.log('Sending message: '+JSON.stringify(contact));
       // $('html, body').css("cursor", "wait");
       return $.ajax({
@@ -219,11 +232,11 @@ console.log('  response:'+JSON.stringify(response));
     });
     return o;
   },
-  toggleFieldHint: function(id) { 
+  toggleFieldHint: function(id) {
     console.log('toggleFieldHint');
     if ($('#'+id+'Hint:visible').length == 0) {
       $('#'+id+'Hint').slideDown(ractive.get('easingDuration')).removeClass('hidden');
-    } else { 
+    } else {
       $('#'+id+'Hint').slideUp(ractive.get('easingDuration'));
     }
   }

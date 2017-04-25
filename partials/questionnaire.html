@@ -65,13 +65,13 @@
       {{/if}}
 
       {{#q.categories:i}}
-        <section id="{{name}}" 
+        <section id="{{name}}"
           {{#if q.about.options.categoryAtATime}}
             style="display:{{i==q.activeCategory ? 'inline' : 'none'}}"
           {{else}}
             style="display:{{always ? 'inline' : 'none'}}"
           {{/if}}
-        > 
+        >
         <h3>{{name.toLeadingCaps()}}</h3>
         <ol>
           {{#each questions:j}}
@@ -111,6 +111,12 @@
                     </label>
                   </div>
                 {{/}}
+              {{elseif type == 'select'}}
+                <div>
+                  <label>
+                    <select class="form-control" id="{{name}}" name="{{q.categories[i].questions[j].response}}" value="{{q.categories[i].questions[j].response}}"></select>
+                  </label>
+                </div>
               {{elseif type == 'matrix'}}
                 <table>
                   <thead>
@@ -131,10 +137,10 @@
                       </tr>
                     {{/optionNames}}
                   </tbody>
-                </table> 
+                </table>
               {{else}}
                 <div {{#if unit && unit!=undefined}}class="input-group"{{/if}}>
-                  <input type="{{type}}" class="form-control" id="{{name}}" placeholder="{{placeholder}}" value="{{this.response}}"/>
+                  <input type="{{type}}" class="form-control" id="{{name}}" {{#if validation}}pattern="{{validation}}"{{/if}} placeholder="{{placeholder}}" value="{{this.response}}"/>
                   {{#if unit && unit!=undefined}}
                     <span class="input-group-addon">
                       <span class="glyphicon" style="font-family:monospace">{{unit}}</span>
@@ -152,7 +158,7 @@
           <button class="btn btn-default" onclick="ractive.set('q.activeCategory',ractive.get('q.activeCategory')-1)" type="button">Back</button>
           {{#if q.activeCategory<q.categories.length-1}}
             <button class="btn btn-primary pull-right" onclick="ractive.set('q.activeCategory',ractive.get('q.activeCategory')+1)" type="button">Next</button>
-          {{else}}              
+          {{elseif q.about.options.finalSubmitButton}}
             <button class="btn btn-primary pull-right" on-click="sendMessage()" type="button">{{q.submit.buttonText}}</button>
           {{/if}}
         {{/if}}
