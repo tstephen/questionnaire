@@ -70,7 +70,11 @@ if (ractive==undefined) return;
          console.log('success:'+data);
          $.each(data.categories, function(i,d) {
            $.each(d.questions, function(j,e) {
-             e.optionValues = [];
+             try {
+               e.optionValues = [];
+             } catch (ex) {
+               console.error(ex);
+             }
            });
          });
 

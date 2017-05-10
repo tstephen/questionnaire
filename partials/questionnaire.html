@@ -2,13 +2,13 @@
     {{#q.about.title}}
       <h1 class="title">
         {{#if q.about.options.previous}}
-          <a href="{{q.about.options.previous}}">
-            <span class=" glyphicon glyphicon-chevron-left"></span>
+          <a class="previous" href="#" onclick="{{q.about.options.previous}}">
+            <span class="glyphicon glyphicon-chevron-left"></span>
           </a>
         {{/if}}
         {{q.about.title}}
         {{#if q.about.options.next}}
-          <a href="index.html">
+          <a class="next" href="#" onclick="{{q.about.options.next}}">
             <span class="pull-right glyphicon glyphicon-chevron-right"></span>
           </a>
         {{/if}}
