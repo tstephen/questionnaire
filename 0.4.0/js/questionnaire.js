@@ -1,8 +1,9 @@
+var EASING_DURATION = 500;
+
 jQuery(document).ready(function() {
   console.log('ready event handler');
   if (ractive.tenantCallbacks==undefined) ractive.tenantCallbacks = $.Callbacks();
   ractive.tenantCallbacks.add(function() {
-    ractive.ajaxSetup();
     ractive.initAutoComplete();
   });
   var params = getSearchParameters();
@@ -22,6 +23,7 @@ var ractive = new Ractive({
     easingDuration: 500, // millis
     fadeOutMessages: true,
     questionnaireDef: $('body').data('questionnaire'),
+    server: $env.server,
     toId: function(name) {
       return name.toLowerCase().replace(/ /g,'_').replace('(','').replace(')','');
     },
@@ -30,8 +32,8 @@ var ractive = new Ractive({
       { "name": "questionnaireContact", "url": "partials/questionnaire-contact.html"}
     ],
     toQName: function(i,j) {
-if (ractive==undefined) return;
-      return ractive.get('q.categories.'+i+'.questions.'+j+'.id');
+      if (ractive==undefined) return;
+      else return ractive.get('q.categories.'+i+'.questions.'+j+'.id');
     }
   },
   addDataList: function(d, data) {
@@ -97,8 +99,51 @@ if (ractive==undefined) return;
        }
     });
   },
+  getServer: function() {
+    return ractive.get('server')==undefined ? '' : ractive.get('server');
+  },
+  hash: function(email) {
+    if (email==undefined) return;
+    return hex_md5(email.trim().toLowerCase());
+  },
   hideMessage: function() {
     $('#messages, .messages').hide();
+  },
+  initAutoComplete: function() {
+    console.log('initAutoComplete');
+    if (ractive.get('tenant.typeaheadControls')!=undefined && ractive.get('tenant.typeaheadControls').length>0) {
+      $.each(ractive.get('tenant.typeaheadControls'), function(i,d) {
+        //console.log('binding ' +d.url+' to typeahead control: '+d.selector);
+        if (d.url==undefined) {
+          if ($(d.selector+'.typeahead').length>0 && typeof $(d.selector+'.typeahead').typeahead == 'function') ractive.initAutoCompletePart2(d,d.values);
+          ractive.addDataList(d,d.values);
+        } else {
+          $.getJSON(ractive.getServer()+d.url, function(data){
+            if ($(d.selector+'.typeahead').length>0 && typeof $(d.selector+'.typeahead').typeahead == 'function') ractive.initAutoCompletePart2(d,data);
+            if (data == null || !Array.isArray(data)) {
+              console.info('No values for datalist: '+d.name+', probably refreshing token');
+            } else {
+              d.values = data;
+              ractive.addDataList(d,d.values);
+            }
+          })
+          .fail(function(jqXHR, textStatus, errorThrown) {
+            if (jqXHR.status == 401) console.info('No values for datalist: '+d.name+', need to refresh token or login again');
+            else console.error('No values for datalist: '+d.name+', please check configuration');
+          });
+        }
+      });
+    }
+  },
+  initAutoCompletePart2: function(d, data) {
+    if (d.name!=undefined) ractive.set(d.name,data);
+    $(d.selector).typeahead({ items:'all',minLength:0,source:data });
+    $(d.selector).on("click", function (ev) {
+      newEv = $.Event("keydown");
+      newEv.keyCode = newEv.which = 40;
+      $(ev.target).trigger(newEv);
+      return true;
+    });
   },
   loadStandardPartial: function(name,url) {
     //console.log('loading...: '+d.name)
@@ -225,6 +270,17 @@ console.log('  response:'+JSON.stringify(response));
       $('#messages').fadeOut();
     }, (ractive.get(easingDuration)*10));
     else $('#messages').append('<span class="text-danger pull-right glyphicon glyphicon-remove" onclick="ractive.hideMessage()"></span>');
+  },
+  showReconnected: function() {
+    console.log('showReconnected');
+    $( "#ajax-loader" ).hide();
+    if ($('#connectivityMessages:visible').length>0) {
+      $('#connectivityMessages').remove();
+      $('body').append('<div id="connectivityMessages" class="alert-info">Reconnected</div>').show();
+      setTimeout(function() {
+        $('#connectivityMessages').fadeOut();
+      }, EASING_DURATION*10);
+    }
   },
   toQuestionnaire: function(cats) {
     console.log('toQuestionnaire: '+cats);
