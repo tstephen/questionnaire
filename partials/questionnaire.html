@@ -77,9 +77,9 @@
           {{#each questions:j}}
             <li class="form-group">
               {{#hint}}
-                <span class="glyphicon glyphicon-question-sign pull-right" onclick="ractive.toggleFieldHint('{{id}}')" title="help for {{label}}"></span>
+                <span class="glyphicon glyphicon-question-sign pull-right" onclick="ractive.toggleFieldHint('{{id}}')" title="help for {{name}}"></span>
               {{/hint}}
-              <label for="{{name}}">{{label}}</label>
+              <label for="{{name}}">{{{label}}}</label>
               <p class="help-block hidden" id="{{id}}Hint">{{{hint}}}</p>
               {{#if type == 'yesno' || type == 'yesnona'}}
                 <div class="radio">

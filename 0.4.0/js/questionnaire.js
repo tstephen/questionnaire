@@ -36,6 +36,10 @@ var ractive = new Ractive({
       else return ractive.get('q.categories.'+i+'.questions.'+j+'.id');
     }
   },
+  partials: {
+    loginSect: '',
+    questionnaire: ''
+  },
   addDataList: function(d, data) {
     $('datalist#'+d.name).remove();
     $('body').append('<datalist id="'+d.name+'">');
@@ -195,7 +199,6 @@ var ractive = new Ractive({
   },
   oninit: function() {
     console.info('oninit');
-    this.loadStandardPartials(this.get('stdPartials'));
   },
   revealDetails: function(id) {
     console.log('show details for: '+id);
@@ -299,6 +302,12 @@ console.log('  response:'+JSON.stringify(response));
     } else {
       $('#'+id+'Hint').slideUp(ractive.get('easingDuration'));
     }
+  }
+});
+
+$(document).ready(function() {
+  if (ractive.partials['questionnaire'] == '') { // not yet loaded remote partials
+    ractive.loadStandardPartials(ractive.get('stdPartials'));
   }
 });
 
