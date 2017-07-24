@@ -119,11 +119,9 @@ var ractive = new Ractive({
       $.each(ractive.get('tenant.typeaheadControls'), function(i,d) {
         //console.log('binding ' +d.url+' to typeahead control: '+d.selector);
         if (d.url==undefined) {
-          if ($(d.selector+'.typeahead').length>0 && typeof $(d.selector+'.typeahead').typeahead == 'function') ractive.initAutoCompletePart2(d,d.values);
           ractive.addDataList(d,d.values);
         } else {
           $.getJSON(ractive.getServer()+d.url, function(data){
-            if ($(d.selector+'.typeahead').length>0 && typeof $(d.selector+'.typeahead').typeahead == 'function') ractive.initAutoCompletePart2(d,data);
             if (data == null || !Array.isArray(data)) {
               console.info('No values for datalist: '+d.name+', probably refreshing token');
             } else {
@@ -138,16 +136,6 @@ var ractive = new Ractive({
         }
       });
     }
-  },
-  initAutoCompletePart2: function(d, data) {
-    if (d.name!=undefined) ractive.set(d.name,data);
-    $(d.selector).typeahead({ items:'all',minLength:0,source:data });
-    $(d.selector).on("click", function (ev) {
-      newEv = $.Event("keydown");
-      newEv.keyCode = newEv.which = 40;
-      $(ev.target).trigger(newEv);
-      return true;
-    });
   },
   loadStandardPartial: function(name,url) {
     //console.log('loading...: '+d.name)
@@ -272,7 +260,7 @@ console.log('  response:'+JSON.stringify(response));
     if (ractive.get('fadeOutMessages') && additionalClass!='bg-danger text-danger') setTimeout(function() {
       $('#messages').fadeOut();
     }, (ractive.get(easingDuration)*10));
-    else $('#messages').append('<span class="text-danger pull-right glyphicon glyphicon-remove" onclick="ractive.hideMessage()"></span>');
+    else $('#messages').append('<span class="text-danger pull-right glyphicon glyphicon-btn glyphicon-remove" onclick="ractive.hideMessage()"></span>');
   },
   showReconnected: function() {
     console.log('showReconnected');

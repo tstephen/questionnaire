@@ -3,13 +3,13 @@
       <h1 class="title">
         {{#if q.about.options.previous}}
           <a class="previous" href="#" onclick="{{q.about.options.previous}}">
-            <span class="glyphicon glyphicon-chevron-left"></span>
+            <span class="glyphicon glyphicon-btn glyphicon-chevron-left"></span>
           </a>
         {{/if}}
         {{q.about.title}}
         {{#if q.about.options.next}}
           <a class="next" href="#" onclick="{{q.about.options.next}}">
-            <span class="pull-right glyphicon glyphicon-chevron-right"></span>
+            <span class="pull-right glyphicon glyphicon-btn glyphicon-chevron-right"></span>
           </a>
         {{/if}}
       </h1>
@@ -77,7 +77,7 @@
           {{#each questions:j}}
             <li class="form-group">
               {{#hint}}
-                <span class="glyphicon glyphicon-question-sign pull-right" onclick="ractive.toggleFieldHint('{{id}}')" title="help for {{name}}"></span>
+                <span class="glyphicon glyphicon-btn glyphicon-question-sign pull-right" onclick="ractive.toggleFieldHint('{{id}}')" title="help for {{name}}"></span>
               {{/hint}}
               <label for="{{name}}">{{{label}}}</label>
               <p class="help-block hidden" id="{{id}}Hint">{{{hint}}}</p>
@@ -102,6 +102,15 @@
                     </label>
                   </div>
                 {{/if}}
+              {{elseif type == 'checkbox'}}
+                {{#optionNames:k}}
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="{{q.categories[i].questions[j].response}}" value="{{k}}-{{.}}">
+                      {{.}}
+                    </label>
+                  </div>
+                {{/}}
               {{elseif type == 'radio'}}
                 {{#optionNames:k}}
                   <div class="radio">
