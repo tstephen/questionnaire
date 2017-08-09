@@ -120,6 +120,12 @@
                     </label>
                   </div>
                 {{/}}
+              {{elseif type == 'list'}}
+                <div class="row">
+                  <label class="col-md-12">
+                    <input class="form-control" id="{{name}}" name="{{q.categories[i].questions[j].response}}" list="{{optionNames[0]}}" value="{{q.categories[i].questions[j].response}}"/>
+                  </label>
+                </div>
               {{elseif type == 'select'}}
                 <div>
                   <label>
