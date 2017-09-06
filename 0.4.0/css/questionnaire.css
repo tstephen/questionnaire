@@ -31,6 +31,9 @@
 /* END MESSAGES */
 
 /* FORMS */
+section#questionnaireSect section:first-child button.btn.btn-default {
+    display: none;
+}
 input.form-error:invalid, 
 select.form-error:invalid, 
 textarea.form-error:invalid { 

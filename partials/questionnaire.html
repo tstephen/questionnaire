@@ -63,9 +63,9 @@
           {{/}}
         </div>
       {{/if}}
-
+      <div class="categories">
       {{#q.categories:i}}
-        <section id="{{name}}"
+        <section id="{{name}}" class="category"
           {{#if q.about.options.categoryAtATime}}
             style="display:{{i==q.activeCategory ? 'inline' : 'none'}}"
           {{else}}
@@ -179,6 +179,7 @@
         {{/if}}
         </section>
       {{/each}}
+      </div>
     </section>
 
     {{#q.about.options.contactAtBottom}}
