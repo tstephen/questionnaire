@@ -259,7 +259,7 @@ console.log('  response:'+JSON.stringify(response));
 //    document.getElementById('messages').scrollIntoView();
     if (ractive.get('fadeOutMessages') && additionalClass!='bg-danger text-danger') setTimeout(function() {
       $('#messages').fadeOut();
-    }, (ractive.get(easingDuration)*10));
+    }, (EASING_DURATION*10));
     else $('#messages').append('<span class="text-danger pull-right glyphicon glyphicon-btn glyphicon-remove" onclick="ractive.hideMessage()"></span>');
   },
   showReconnected: function() {
