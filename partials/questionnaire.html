@@ -155,7 +155,7 @@
                 </table>
               {{else}}
                 <div {{#if unit && unit!=undefined}}class="input-group"{{/if}}>
-                  <input type="{{type}}" class="form-control" id="{{name}}" {{#if validation}}pattern="{{validation}}"{{/if}} placeholder="{{placeholder}}" value="{{this.response}}"/>
+                  <input type="{{type}}" class="form-control" id="{{name}}" {{#if validation}}pattern="{{validation}}"{{/if}} placeholder="{{placeholder}}" title="Please enter in the expected format {{placeholder}}" value="{{this.response}}"/>
                   {{#if unit && unit!=undefined}}
                     <span class="input-group-addon">
                       <span class="glyphicon" style="font-family:monospace">{{unit}}</span>
