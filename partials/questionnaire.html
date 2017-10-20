@@ -73,11 +73,12 @@
           {{/if}}
         >
         <h3>{{name.toLeadingCaps()}}</h3>
+        <p><label class="required" style="display:inline"></label> denotes <em>core</em> information that needs to be filled in.</p>
         <ol>
           {{#each questions:j}}
             <li class="form-group">
               {{#hint}}
-                <span class="glyphicon glyphicon-btn glyphicon-question-sign pull-right" onclick="ractive.toggleFieldHint('{{id}}')" title="help for {{name}}"></span>
+                <span class="glyphicon glyphicon-question-sign pull-right" onclick="ractive.toggleFieldHint('{{id}}')" title="help for {{name}}"></span>
               {{/hint}}
               <label {{# required }}class="required"{{/}} for="{{name}}">{{{label}}}</label>
               <p class="help-block hidden" id="{{id}}Hint">{{{hint}}}</p>
