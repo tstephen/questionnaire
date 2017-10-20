@@ -3,13 +3,13 @@
       <h1 class="title">
         {{#if q.about.options.previous}}
           <a class="previous" href="#" onclick="{{q.about.options.previous}}">
-            <span class="glyphicon glyphicon-btn glyphicon-chevron-left"></span>
+            <span class="glyphicon glyphicon glyphicon-chevron-left"></span>
           </a>
         {{/if}}
         {{q.about.title}}
         {{#if q.about.options.next}}
           <a class="next" href="#" onclick="{{q.about.options.next}}">
-            <span class="pull-right glyphicon glyphicon-btn glyphicon-chevron-right"></span>
+            <span class="pull-right glyphicon glyphicon glyphicon-chevron-right"></span>
           </a>
         {{/if}}
       </h1>
@@ -79,18 +79,18 @@
               {{#hint}}
                 <span class="glyphicon glyphicon-btn glyphicon-question-sign pull-right" onclick="ractive.toggleFieldHint('{{id}}')" title="help for {{name}}"></span>
               {{/hint}}
-              <label for="{{name}}">{{{label}}}</label>
+              <label {{# required }}class="required"{{/}} for="{{name}}">{{{label}}}</label>
               <p class="help-block hidden" id="{{id}}Hint">{{{hint}}}</p>
               {{#if type == 'yesno' || type == 'yesnona'}}
                 <div class="radio">
                   <label>
-                    <input type="radio" id="{{name}}" on-click="revealDetails(name)" name="{{this.response}}" {{# required }}required="true"{{/}} value="true"/>
+                    <input type="radio" id="{{name}}" on-click="revealDetails(name)" name="{{this.response}}" {{# required }}required{{/}} value="true"/>
                       Yes
                   </label>
                 </div>
                 <div class="radio">
                   <label>
-                    <input type="radio" id="{{name}}" name="{{this.response}}" {{# required }}required="true"{{/}} value="false"/>
+                    <input type="radio" id="{{name}}" name="{{this.response}}" {{# required }}required{{/}} value="false"/>
                       No
                   </label>
                 </div>
@@ -155,7 +155,7 @@
                 </table>
               {{else}}
                 <div {{#if unit && unit!=undefined}}class="input-group"{{/if}}>
-                  <input type="{{type}}" class="form-control" id="{{name}}" maxlength="1000" {{#if validation}}pattern="{{validation}}"{{/if}} placeholder="{{placeholder}}" title="Please enter in the expected format {{placeholder}}" value="{{this.response}}"/>
+                  <input type="{{type}}" class="form-control" id="{{name}}" maxlength="1000" {{#if validation}}pattern="{{validation}}"{{/if}} placeholder="{{placeholder}}" {{# required }}required{{/}} title="Please enter in the expected format {{placeholder}}" value="{{this.response}}"/>
                   {{#if unit && unit!=undefined}}
                     <span class="input-group-addon">
                       <span class="glyphicon" style="font-family:monospace">{{unit}}</span>
