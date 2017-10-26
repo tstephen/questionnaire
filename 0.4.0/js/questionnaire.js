@@ -47,10 +47,12 @@ var ractive = new Ractive({
       $('datalist#'+d.name).append('<option value="'+e.name+'">'+e.name+'</option>');
     });
   },
-  addSelectOptions: function(selector, data) {
+  addSelectOptions: function(selector, data, value) {
+    console.info('add selection options to '+selector+' selecting '+value);
     $(selector+' option').remove();
     $.each(data, function (i,e) {
-      $(selector).append('<option value="'+e.name+'">'+e.name+'</option>');
+      $(selector).append('<option '+(e.name==value ? 'selected ' : '')
+          +'value="'+e.name+'">'+e.name+'</option>');
     });
   },
   applyBranding: function() {
@@ -74,15 +76,11 @@ var ractive = new Ractive({
        dataType: 'json',
        success: function(data, textStatus, jqxhr) {
          console.log('success:'+data);
-         $.each(data.categories, function(i,d) {
-           $.each(d.questions, function(j,e) {
-             try {
-               e.optionValues = [];
-             } catch (ex) {
-               console.error(ex);
-             }
-           });
-         });
+         for (var i = 0 ; i < data.categories.length ; i++) {
+           for (var j = 0 ; j < data.categories[i].length ; j++) {
+             data.categories[i][j].optionValues = [];
+           }
+         }
 
          // sane defaults
          if (data['activeCategory']==undefined) data.activeCategory = 0;
