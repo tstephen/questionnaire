@@ -230,11 +230,12 @@ console.log('  response:'+JSON.stringify(response));
           }
         });
     } else {
-      $(':invalid').filter(':visible').addClass('form-error');
-      $(':valid').filter(':visible').removeClass('form-error');
-      $('.radio :invalid').parent().addClass('form-error');
-      $('.radio :valid').parent().removeClass('form-error');
-      $(':invalid').filter(':visible')[0].scrollIntoView();
+      $('#questionnaireForm :invalid').filter(':visible').addClass('form-error');
+      $('#questionnaireForm :valid').filter(':visible').removeClass('form-error');
+      $('#questionnaireForm .radio :invalid').parent().addClass('form-error');
+      $('#questionnaireForm .radio :valid').parent().removeClass('form-error');
+      if ($('#questionnaireForm :invalid').filter(':visible').length>0)
+        $('#questionnaireForm :invalid').filter(':visible')[0].scrollIntoView();
       var msg = 'Your questionnaire is not yet complete, please correct the highlighted fields';
       console.log(msg);
       ractive.showError(msg);

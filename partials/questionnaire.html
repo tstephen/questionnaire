@@ -175,7 +175,7 @@
           {{#if q.activeCategory<q.categories.length-1}}
             <button class="btn btn-primary pull-right" onclick="ractive.set('q.activeCategory',ractive.get('q.activeCategory')+1)" type="button">Next</button>
           {{elseif q.about.options.finalSubmitButton}}
-            <button class="btn btn-primary pull-right" on-click="sendMessage()" type="button">{{q.submit.buttonText}}</button>
+            <button id="qSubmitBtn" class="btn btn-primary pull-right" on-click="sendMessage()" type="button">{{q.submit.buttonText}}</button>
           {{/if}}
         {{/if}}
         </section>
