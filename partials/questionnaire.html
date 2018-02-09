@@ -85,20 +85,20 @@
               {{#if type == 'yesno' || type == 'yesnona'}}
                 <div class="radio">
                   <label>
-                    <input type="radio" id="{{name}}" on-click="revealDetails(name)" name="{{this.response}}" {{# required }}required{{/}} value="true"/>
+                    <input type="radio" data-id="{{name}}" on-click="revealDetails(name)" name="{{this.response}}" {{# required }}required{{/}} value="true"/>
                       Yes
                   </label>
                 </div>
                 <div class="radio">
                   <label>
-                    <input type="radio" id="{{name}}" name="{{this.response}}" {{# required }}required{{/}} value="false"/>
+                    <input type="radio" data-id="{{name}}" name="{{this.response}}" {{# required }}required{{/}} value="false"/>
                       No
                   </label>
                 </div>
                 {{#if type == 'yesnona'}}
                   <div class="radio">
                     <label>
-                      <input type="radio" id="{{name}}" name="{{this.response}}" value="na"/>
+                      <input type="radio" data-id="{{name}}" name="{{this.response}}" value="na"/>
                         Don't know
                     </label>
                   </div>
@@ -107,7 +107,7 @@
                 {{#optionNames:k}}
                   <div class="checkbox">
                     <label>
-                      <input type="checkbox" name="{{q.categories[i].questions[j].response}}" value="{{k}}-{{.}}">
+                      <input type="checkbox" data-id="{{q.categories[i].questions[j].name}}" name="checkbox-{{i}}-{{j}}" value="{{k}}-{{.}}">
                       {{.}}
                     </label>
                   </div>
@@ -116,7 +116,7 @@
                 {{#optionNames:k}}
                   <div class="radio">
                     <label>
-                      <input type="radio" id="{{toId(.)}}" name="{{q.categories[i].questions[j].response}}" value="{{k}}-{{.}}">
+                      <input type="radio" data-id="{{q.categories[i].questions[j].name}}" name="radio-{{i}}-{{j}}" value="{{k}}-{{.}}">
                       {{.}}
                     </label>
                   </div>
@@ -175,7 +175,7 @@
           {{#if q.activeCategory<q.categories.length-1}}
             <button class="btn btn-primary pull-right" onclick="ractive.set('q.activeCategory',ractive.get('q.activeCategory')+1)" type="button">Next</button>
           {{elseif q.about.options.finalSubmitButton}}
-            <button id="qSubmitBtn" class="btn btn-primary pull-right" on-click="sendMessage()" type="button">{{q.submit.buttonText}}</button>
+            <button id="qSubmitBtn{{i}}" class="btn btn-primary pull-right" on-click="sendMessage()" type="button">{{q.submit.buttonText}}</button>
           {{/if}}
         {{/if}}
         </section>
