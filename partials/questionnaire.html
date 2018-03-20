@@ -3,13 +3,13 @@
       <h1 class="title">
         {{#if q.about.options.previous}}
           <a class="previous" href="#" onclick="{{q.about.options.previous}}">
-            <span class="glyphicon glyphicon glyphicon-chevron-left"></span>
+            <span class="glyphicon kp-icon kp-icon-backward"></span>
           </a>
         {{/if}}
         {{q.about.title}}
         {{#if q.about.options.next}}
           <a class="next" href="#" onclick="{{q.about.options.next}}">
-            <span class="pull-right glyphicon glyphicon glyphicon-chevron-right"></span>
+            <span class="pull-right glyphicon kp-icon kp-icon-forward"></span>
           </a>
         {{/if}}
       </h1>
@@ -156,7 +156,7 @@
                 </table>
               {{else}}
                 <div {{#if unit && unit!=undefined}}class="input-group"{{/if}}>
-                  <input type="{{type}}" class="form-control" id="{{name}}" maxlength="1000" {{#if validation}}pattern="{{validation}}"{{/if}} placeholder="{{placeholder}}" {{# required }}required{{/}} title="Please enter in the expected format {{placeholder}}" value="{{this.response}}"/>
+                  <input type="{{type}}" class="form-control" id="{{name}}" {{#if type=="number"}}max="100000000000"{{else}}maxlength="1000"{{/if}} {{#if validation}}pattern="{{validation}}"{{/if}} placeholder="{{placeholder}}" {{# required }}required{{/}} title="Please enter in the expected format {{placeholder}}" value="{{this.response}}"/>
                   {{#if unit && unit!=undefined}}
                     <span class="input-group-addon">
                       <span class="glyphicon" style="font-family:monospace">{{unit}}</span>
