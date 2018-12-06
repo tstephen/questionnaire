@@ -24,12 +24,23 @@ var ractive = new Ractive({
     fadeOutMessages: true,
     questionnaireDef: $('body').data('questionnaire'),
     server: $env.server,
+    matchRole: function(role) {
+      console.info('matchRole: '+role)
+      if (window['$auth']==undefined) return false;
+      if (role==undefined || $auth.getClaim('scopes').indexOf(role)>-1) {
+        $('.'+role).show();
+        return true;
+      } else {
+        return false;
+      }
+    },
     toId: function(name) {
       return name.toLowerCase().replace(/ /g,'_').replace('(','').replace(')','');
     },
     stdPartials: [
       { "name": "questionnaire", "url": "partials/questionnaire.html"},
-      { "name": "questionnaireContact", "url": "partials/questionnaire-contact.html"}
+      { "name": "questionnaireContact", "url": "partials/questionnaire-contact.html"},
+      { "name": "sidebar", "url": $env.server+"/partials/sidebar.html"}
     ],
     toQName: function(i,j) {
       if (ractive==undefined) return;
@@ -37,8 +48,8 @@ var ractive = new Ractive({
     }
   },
   partials: {
-    loginSect: '',
-    questionnaire: ''
+    questionnaire: '',
+    sidebar: ''
   },
   addDataList: function(d, data) {
     $('datalist#'+d.name).remove();
