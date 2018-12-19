@@ -93,6 +93,11 @@ var ractive = new Ractive({
            }
          }
 
+         if (ractive.getBookmark()!=undefined) {
+           var cat = data['categories'].find(function(obj) { return obj.name == this; }, ractive.getBookmark());
+           data['activeCategory'] = data['categories'].indexOf(cat);
+         }
+
          // sane defaults
          if (data['activeCategory']==undefined) data.activeCategory = 0;
          if (data['about']==undefined) data.about = { };
@@ -111,6 +116,12 @@ var ractive = new Ractive({
          if (ractive.fetchCallbacks!=null) ractive.fetchCallbacks.fire( data );
        }
     });
+  },
+  getBookmark: function() {
+    var end = document.location.hash.indexOf('?') ==-1
+		  ? document.location.hash.length : document.location.hash.indexOf('?')
+    var bmark = decodeURIComponent(document.location.hash.substring(1, end));
+    return bmark.length > 0 ? bmark : undefined;
   },
   getServer: function() {
     return ractive.get('server')==undefined ? '' : ractive.get('server');
