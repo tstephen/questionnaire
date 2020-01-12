@@ -159,7 +159,7 @@
                   <input type="{{type}}" class="form-control" id="{{name}}" {{#if type=="number"}}max="100000000000"{{else}}maxlength="1000"{{/if}} {{#if validation}}pattern="{{validation}}"{{/if}} placeholder="{{placeholder}}" {{# required }}required{{/}} title="Please enter in the expected format {{placeholder}}" value="{{this.response}}"/>
                   {{#if unit && unit!=undefined}}
                     <span class="input-group-addon">
-                      <span class="glyphicon" style="font-family:monospace">{{unit}}</span>
+                      <span class="glyphicon" style="font-family:monospace">{{{unit}}}</span>
                     </span>
                   {{/if}}
                 </div>
