@@ -9,9 +9,9 @@
       "categoryAtATime": false
     },
     "branding": {
-      "favicon": "https://api.omny.link/images/icon/omny-icon-16x16.png",
-      "link": "http://omny.link/",
-      "logo": "https://api.omny.link/images/omny-logo.png"
+      "favicon": "https://api.knowprocess.com/images/icon/knowprocess-icon-16x16.png",
+      "link": "https://knowprocess.com/",
+      "logo": "https://knowprocess.com/images/knowprocess-logo.png"
     },
     "title": "Physical Activity Questionnaire",
     "subTitle": "",

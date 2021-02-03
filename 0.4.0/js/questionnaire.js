@@ -1,18 +1,3 @@
-var EASING_DURATION = 500;
-
-jQuery(document).ready(function() {
-  console.log('ready event handler');
-  if (ractive.tenantCallbacks==undefined) ractive.tenantCallbacks = $.Callbacks();
-  ractive.tenantCallbacks.add(function() {
-    ractive.initAutoComplete();
-  });
-  var params = getSearchParameters();
-  for (idx in Object.keys(params)) {
-    ractive.set(Object.keys(params)[idx], params[Object.keys(params)[idx]]);
-  }
-  if (ractive.get('questionnaireDef')!=undefined) ractive.fetch();
-});
-
 var ractive = new Ractive({
   el: 'containerSect',
   template: '#template',
@@ -39,8 +24,7 @@ var ractive = new Ractive({
     },
     stdPartials: [
       { "name": "questionnaire", "url": "partials/questionnaire.html"},
-      { "name": "questionnaireContact", "url": "partials/questionnaire-contact.html"},
-      { "name": "sidebar", "url": $env.server+"/partials/sidebar.html"}
+      { "name": "questionnaireContact", "url": "partials/questionnaire-contact.html"}
     ],
     toQName: function(i,j) {
       if (ractive==undefined) return;
@@ -49,6 +33,7 @@ var ractive = new Ractive({
   },
   partials: {
     questionnaire: '',
+    questionnaireContact: '',
     sidebar: ''
   },
   addDataList: function(d, data) {
@@ -85,6 +70,12 @@ var ractive = new Ractive({
        type: 'GET',
        url: url,
        dataType: 'json',
+       crossDomain: true,
+       headers: {
+         "X-Requested-With": "XMLHttpRequest",
+         "Authorization": "Bearer "+localStorage['token'],
+         "Cache-Control": "no-cache"
+       },
        success: function(data, textStatus, jqxhr) {
          console.log('success:'+data);
          for (var i = 0 ; i < data.categories.length ; i++) {
@@ -280,7 +271,7 @@ console.log('  response:'+JSON.stringify(response));
 //    document.getElementById('messages').scrollIntoView();
     if (ractive.get('fadeOutMessages') && additionalClass!='bg-danger text-danger') setTimeout(function() {
       $('#messages').fadeOut();
-    }, (EASING_DURATION*10));
+    }, (ractive.get('easingDuration')*10));
     else $('#messages').append('<span class="text-danger pull-right glyphicon glyphicon-btn glyphicon-remove" onclick="ractive.hideMessage()"></span>');
   },
   showReconnected: function() {
@@ -291,7 +282,7 @@ console.log('  response:'+JSON.stringify(response));
       $('body').append('<div id="connectivityMessages" class="alert-info">Reconnected</div>').show();
       setTimeout(function() {
         $('#connectivityMessages').fadeOut();
-      }, EASING_DURATION*10);
+      }, ractive.get('easingDuration')*10);
     }
   },
   toQuestionnaire: function(cats) {
@@ -315,6 +306,17 @@ console.log('  response:'+JSON.stringify(response));
 });
 
 $(document).ready(function() {
+  console.log('ready event handler');
+  if (ractive.tenantCallbacks==undefined) ractive.tenantCallbacks = $.Callbacks();
+  ractive.tenantCallbacks.add(function() {
+    ractive.initAutoComplete();
+  });
+  var params = getSearchParameters();
+  for (idx in Object.keys(params)) {
+    ractive.set(Object.keys(params)[idx], params[Object.keys(params)[idx]]);
+  }
+  if (ractive.get('questionnaireDef')!=undefined) ractive.fetch();
+
   if (ractive.partials['questionnaire'] == '') { // not yet loaded remote partials
     ractive.loadStandardPartials(ractive.get('stdPartials'));
   }
